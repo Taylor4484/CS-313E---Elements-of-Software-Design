@@ -1,0 +1,114 @@
+<HTML>
+<HEAD>
+<TITLE>CS 313E Fall 2012</TITLE>
+<META name="KeyWords" content="CS 313E Fall 2012">
+
+</HEAD>
+<BODY>
+
+<H3>CS313E Assignment 0--Some Simple Python (10 points) </H3>
+
+<P>Due: by midnight Monday, September 10, 2012.<P>
+
+Your program listing should have the following information. 
+
+</p><pre>
+#  File: Assignment0.py
+#
+# Description:
+#
+# Student's Name:
+#
+# Student's UT EID:
+#
+# Course Name: CS 313E 
+#
+# Date Created:
+#
+# Date Last Modified:
+</pre>
+
+<p></p>
+
+
+</p><ul>
+<li> You must submit the .py file. </li>
+<li> Your .py file should have the header with the proper documentation.</li>
+<li> You should be submitting your .py file through the web based 
+     <i>turnin</i> program. We will not accept files e-mailed to us. </li>
+<li> Your code must compile in Python 3 before submission. </li>
+</ul>
+<p></p>
+
+<H3>The Assignment</H3>
+
+This is a simple assignment designed to get you started in Python and
+make sure that you can access the system and perform simple
+operations.<P>
+
+Write a program to prompt the user to type in a line of text at the
+terminal.  You will do this repeatedly until
+the user types an empty line.
+For each line the user types, do each of the following:
+<ol>
+<li> display the line on the screen;
+<li> display it again in all uppercase;
+<li> display it again in all lowercase;
+<li> count each letter a-z (in the lowercase version) and display the
+  counts (ignore any non-letters); 
+<li> display the line again using a Caesar Cipher to shift each letter
+  (ignore non-letters)
+  in the lowercase version by one character to the right (that is A
+  goes to B, B goes to C, ..., Z goes to A).
+</ol>
+Design a pleasing looking output.  Below is what my program produced,
+but you don't have to match that exactly.<P>
+
+It took me about 15 minutes to write this program.  You may need
+the Python functions <t>ord</t> and <t>chr</t>. <P>
+
+<H3>Sample Output</H3>
+
+<pre>
+felix:~/cs313e/assignments> python hw0.py
+
+Please enter a string: Take a zebra for a walk?
+User's input:  Take a zebra for a walk?
+In uppercase:  TAKE A ZEBRA FOR A WALK?
+In lowercase:  take a zebra for a walk?
+The input contains the following characters:
+   a: 5
+   b: 1
+   c: 0
+   d: 0
+   e: 2
+   f: 1
+   g: 0
+   h: 0
+   i: 0
+   j: 0
+   k: 2
+   l: 1
+   m: 0
+   n: 0
+   o: 1
+   p: 0
+   q: 0
+   r: 2
+   s: 0
+   t: 1
+   u: 0
+   v: 0
+   w: 1
+   x: 0
+   y: 0
+   z: 1
+Using the Caesar cipher: ublfbafcsbgpsbxbml
+
+Please enter a string: 
+felix:~/cs313e/assignments> 
+</pre>
+
+
+
+</body></html>

@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<TITLE>CS 313E Fall 2011</TITLE>
+<META name="KeyWords" content="CS 313E Fall 2011">
+
+</HEAD>
+<BODY>
+
+<H3>CS313E Assignment 2: Turtle Graphics (10 points) </H3>
+
+<P>Due: by Monday, 9/24/11
+
+<P>Your program listing should have the following information. 
+
+</p><pre>
+#  Files: Assignment2a.py, Assignment2b.py
+#
+#  Description:
+#
+#  Student's Name:
+#
+#  Student's UT EID:
+#
+#  Course Name: CS 313E 
+#
+#  Date Created:
+#
+#  Date Last Modified:
+</pre>
+<p></p>
+
+
+</p><ul>
+<li> You must submit your .py files. </li>
+<li> Your .py file should have the header with the proper documentation.</li>
+<li> You should be submitting your .py file through the web based 
+     <i>turnin</i> program.  Do not email your files unless there is
+     some problem with the turnin program. </li>
+<li> Your code must compile before submission. </li>
+</ul>
+<p></p>
+
+<H3>The Assignment</H3>
+
+Your assignment has two parts.  You will submit two different Python
+files, to be called Assignment2a.py and Assignment2b.py.  Make sure
+that your picture persists on the screen for 20 seconds after the
+drawing is finished. 
+<ol>
+<li> Use the turtle graphics module to draw a house with a door, two
+  windows, and a chimney.  You can make it as detailed and colorful as
+  you like.   
+
+<li> Use the turtle graphics module to draw some interesting picture of
+  your own choosing.  You will be judged on your creativity and
+  execution. 
+</ol>
+
+Your program should run and draw the picture when the TA runs the
+command <tt>python Assignment2a.py</tt> or <tt>python
+  Assignment2b.py</tt>. 
+
+</body></html>

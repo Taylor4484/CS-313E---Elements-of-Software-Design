@@ -1,0 +1,145 @@
+<HTML>
+<HEAD>
+<TITLE>CS 313E Fall 2012</TITLE>
+<META name="KeyWords" content="CS 313E Fall 2011">
+
+</HEAD>
+<BODY>
+
+<H3>CS313E Assignment 5: Implementing an Order Queue (10 points) </H3>
+
+<P>Due: by Monday, October 15, 2012  by 11:59pm
+
+<P>Your program listing should have the following information. 
+
+</p><pre>
+#  Files: MyQueue.py, WidgetWorks.py
+#
+#  Description:
+#
+#  Student's Name:
+#
+#  Student's UT EID:
+#
+#  Course Name: CS 313E 
+#
+#  Date Created:
+#
+#  Date Last Modified:
+</pre>
+<p></p>
+
+
+</p><ul>
+<li> You must submit your .py files. </li>
+<li> Your .py file should have the header with the proper documentation.</li>
+<li> You should be submitting your .py file through the web based 
+     <i>turnin</i> program. We will not accept files e-mailed to us. </li>
+<li> Your code must compile before submission. </li>
+</ul>
+<p></p>
+
+<H3>The Assignment</H3>
+
+<B>You can do this assignment with one other student.  Only submit one
+  version, but be sure to indicate on your submission what students
+  participated.</B><P>
+
+Elmer Fudd's Waskelly Wabbit Widget Works produces high class widgets
+in patriotic colors (red, white or blue) for the consumer market.
+Your goal is to implement an interactive widget ordering system.  An
+arbitrary number of orders can be entered from the keyboard and placed
+on a queue.  Orders are processed only after the ordering is
+completed.  Thus your program has an ordering phase and a processing
+phase. <P>
+
+First, implement a queue abstract data type; call it MyQueue (feel
+free to adapt what's in the slides).  Place this into a file
+MyQueue.py, which is imported into your WidgetWorks.py file.  (Note:
+the only reason to call it MyQueue instead of Queue is so there's no
+confusion with the pre-defined Python Queue class, which you shouldn't
+use.)<P>
+
+You should also have an Order class, which implements an Order data
+structure.  You can either put this into a separate file or into
+WidgetWorks.py.  An order contains four fields: an order number
+(assigned sequentially when an order is created), a customer name,
+widget color, and quantity.  The last three are supplied by the
+customer at the prompt.  See the example below.  Define accessors and
+setters (mutators) for each of these fields.  After the inputs have
+been entered, create a new Order object containing the information and
+put it onto the orders queue.<P>
+
+When the ordering is complete (a customer types 'exit' instead of a
+name), orders are removed from the queue and processed (printed out)
+in the order in which they were received. <P>
+
+The behavior of your code should be robust.  If an order has a faulty
+color or number, reject the order, but don't stop the ordering
+process.  You will see sample behavior below. <P>
+
+Your toplevel function should be called TestFactory and need not be in
+a class. <P>
+
+<h3>Sample run of the Program</h3>
+
+<pre>
+
+>>> from WidgetWorks import *
+>>> TestFactory()
+
+Welcome to the Waskelly Wabbit Widget Works automated ordering system!
+
+   Please input customer name (or exit): Joe Jones
+   Please select desired widget color (red, white, blue): red
+   Excellent choice. How many red widgets do you want? 4
+Order confirmed!  Please shop with us again.
+
+Welcome to the Waskelly Wabbit Widget Works automated ordering system!
+
+   Please input customer name (or exit): Don Dumb
+   Please select desired widget color (red, white, blue): mauve
+Sorry, that's not a color we offer. Order cancelled.
+
+Welcome to the Waskelly Wabbit Widget Works automated ordering system!
+
+   Please input customer name (or exit): Don Dumb
+   Please select desired widget color (red, white, blue): blue
+   Excellent choice. How many blue widgets do you want? -10
+ Bad quantity. Order cancelled.
+
+Welcome to the Waskelly Wabbit Widget Works automated ordering system!
+
+   Please input customer name (or exit): Don Dumb
+   Please select desired widget color (red, white, blue): blue
+   Excellent choice. How many blue widgets do you want? 10
+Order confirmed!  Please shop with us again.
+
+Welcome to the Waskelly Wabbit Widget Works automated ordering system!
+
+   Please input customer name (or exit): Sue Snot
+   Please select desired widget color (red, white, blue): white
+   Excellent choice. How many white widgets do you want? abc
+ Bad quantity. Order cancelled.
+
+Welcome to the Waskelly Wabbit Widget Works automated ordering system!
+
+   Please input customer name (or exit): Sue Snot
+   Please select desired widget color (red, white, blue): white 
+   Excellent choice. How many white widgets do you want? 14
+Order confirmed!  Please shop with us again.
+
+Welcome to the Waskelly Wabbit Widget Works automated ordering system!
+
+   Please input customer name (or exit): exit
+
+Now processing orders:
+  Order shipped:      Order 1: customer Joe Jones requests 4 red widgets.
+  Order shipped:      Order 2: customer Don Dumb requests 10 blue widgets.
+  Order shipped:      Order 3: customer Sue Snot requests 14 white widgets.
+Queue empty
+>>> 
+
+</pre>
+
+</body></html>

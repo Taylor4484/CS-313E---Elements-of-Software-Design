@@ -1,0 +1,165 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf340
+{\fonttbl\f0\froman\fcharset0 Times-Roman;\f1\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue233;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sa280
+
+\f0\b\fs28 \cf0 CS313E Assignment 6: Jumble Step 1 (10 points)\
+\pard\pardeftab720\sa240
+
+\b0\fs24 \cf0 Due: by Monday, October 29, 2012 by 11:59pm\
+Your program listing should have the following information.\
+\pard\pardeftab720
+
+\f1 \cf0 #  Files: Permutations.py, Wordlist.py, Solver.py\
+#\
+#  Description:\
+#\
+#  Student's Name:\
+#\
+#  Student's UT EID:\
+#\
+#  Course Name: CS 313E \
+#\
+#  Date Created:\
+#\
+#  Date Last Modified:\
+\pard\pardeftab720\sa240
+
+\f0 \cf0 \
+\
+\pard\tx220\tx720\pardeftab720\li720\fi-720
+\ls1\ilvl0\cf0 {\listtext	\'95	}You must submit your .py files.\
+{\listtext	\'95	}Your .py file should have the header with the proper documentation.\
+{\listtext	\'95	}You should be submitting your .py file through the web based 
+\i turnin
+\i0  program. We will not accept files e-mailed to us.\
+{\listtext	\'95	}Your code must compile before submission.\
+\pard\pardeftab720\sa240
+\cf0 \
+\pard\pardeftab720\sa280
+
+\b\fs28 \cf0 The Assignment\
+\pard\pardeftab720
+
+\fs24 \cf0 You can do this assignment with one other student. Only submit one version, but be sure to indicate on your submission what students participated.
+\b0 \
+\pard\pardeftab720\sa240
+\cf0 This is the first of a series of assignments aimed at solving the Jumbles that you see in the paper or online: {\field{\*\fldinst{HYPERLINK "http://www.jumble.com/"}}{\fldrslt \cf2 \ul \ulc2 Jumble website}}. The idea is this: given a series of scrambled words, unscramble them. There's also another component to use some letters to solve a riddle; we're not going to be dealing with that.\
+The basic algorithm is as follows: given a scrambled word (e.g., ACTMH), you generate permutations of the word and check your wordlist until you either find the word (MATCH), or you exhaust the list of permutations, in which case you report failure. For this first program in this series, you'll be doing part of this. In particular, implement the following steps:\
+\pard\pardeftab720\sa300
+
+\b \cf0 Implement a Wordlist ADT\
+\pard\pardeftab720
+
+\b0 \cf0 Implement a Wordlist abstract data type with the following interface:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720
+\ls2\ilvl0\cf0 {\listtext	\'95	}__init__( ): create an empty Wordlist.\uc0\u8232 \
+{\listtext	\'95	}__len__( ): number of words in the Wordlist.\uc0\u8232 \
+{\listtext	\'95	}isEmpty(): is the Wordlist empty?\uc0\u8232 \
+{\listtext	\'95	}addWord( word, f ): add a word to the Wordlist, if it satisfies filter function f.\uc0\u8232 \
+{\listtext	\'95	}addWordsFromFile( filename, f ): given an external file containing words, add to the Wordlist any that satisfy f. Assume that the file contains one word per line, and that the words do not repeat.\uc0\u8232 \
+{\listtext	\'95	}removeWord( word ): remove the word from the Wordlist.\uc0\u8232 \
+{\listtext	\'95	}findWord( word ): return a pair ( Boolean, integer ) indicating whether or not the word is in the wordlist and how many comparison you performed to determine.\
+\pard\pardeftab720
+\cf0 The filter function f the name of a Boolean-valued function on words, e.g., only returns True if the word has length 5 or 6.\
+\pard\pardeftab720\sa240
+\cf0 For this first version, simply store the words in a Python list and implement 
+\f1 findWord
+\f0  via a linear search of the list. You will have to implement it with a loop to count the number of comparisons; that is, don't just do something like 
+\f1 word in self._words
+\f0 . When you create a new Wordlist, print out how many words were stored and how long it took.\
+\
+\pard\pardeftab720\sa300
+
+\b \cf0 Write a Top-Level Driver\
+\pard\pardeftab720
+
+\b0 \cf0 Your main program should create an empty Wordlist and populate it from the words in this file: {\field{\*\fldinst{HYPERLINK "http://www.cs.utexas.edu/~byoung/cs313e/scrambledwordslist"}}{\fldrslt \cf2 \ul \ulc2 Unordered word list}}, using for the filter one that admits words of 5 or 6 letters. Print out the number or words in the wordlist and how long it took to generate the Wordlist.\
+\pard\pardeftab720\sa240
+\cf0 Following that initial setup, your main program should enter a loop. In each iteration prompt the user for an input string, generate permutations of the string, and test whether any permutation is in the Wordlist. If so, return that as your answer along with statistics of the search (how many comparisons you made and how long it took). If no permutation is in the Wordlist, report failure and the statistics of the search. Loop until the user enters "exit." User input should not be case sensitive. Sample output is below.\
+Some code to generate permutations of a string is here: {\field{\*\fldinst{HYPERLINK "http://www.cs.utexas.edu/~byoung/cs313e/Permutations.py"}}{\fldrslt \cf2 \ul \ulc2 Permutation code}}. Here 
+\f1 allPerms( string )
+\f0  will give you all of the permutations of 
+\f1 string
+\f0  and 
+\f1 howManyPerms( string )
+\f0  returns a pair: (total number of permutations, unique permutations).\
+This file {\field{\*\fldinst{HYPERLINK "http://www.cs.utexas.edu/~byoung/cs313e/jumbles"}}{\fldrslt \cf2 \ul \ulc2 Jumbles}} contains some recent jumbles from the Austin American Statesman. You can use these as sample input to test your program.\
+\
+\pard\pardeftab720\sa300
+
+\b \cf0 Computing Timing Information\
+\pard\pardeftab720
+
+\b0 \cf0 To time some Python code, first import the 
+\f1 time
+\f0  module. The method 
+\f1 time.time()
+\f0  will give you the current time. If you record that in a variable at the start and end of the computation, the difference of the two will be the elapsed time in seconds. For example,
+\f1 \
+import time\
+\
+start = time.time()\
+\
+    ...  # computation I'd like to time\
+\
+end = time.time()\
+print("This computation took %2.3f seconds" % (end - start))\
+\pard\pardeftab720\sa280
+
+\f0\b\fs28 \cf0 Sample run of the Program\
+\pard\pardeftab720
+
+\b0\fs24 \cf0 Don't worry if your comparison counts don't match these. Also, I didn't filter the wordlist, so yours will have many fewer words.\
+\pard\pardeftab720\sa240
+\cf0 \
+\pard\pardeftab720
+
+\f1 \cf0 > python Solver.py\
+Using flat unsorted wordlist.\
+The Wordlist contains  113810  words.\
+Building the Wordlist took 0.472 seconds\
+\
+Enter a scrambled word (or EXIT):  torll\
+Found  120 permutations;  60.0 unique permutations\
+Found word: troll\
+Solving this jumble took 0.16808 seconds\
+Checked  6  permutations.\
+Made  611180  comparisons.\
+\
+Enter a scrambled word (or EXIT):  denrt\
+Found  120 permutations;  120.0 unique permutations\
+Found word: trend\
+Solving this jumble took 3.39772 seconds\
+Checked  115  permutations.\
+Made  12978244  comparisons.\
+\
+Enter a scrambled word (or EXIT):  gewhit\
+Found  720 permutations;  720.0 unique permutations\
+Found word: weight\
+Solving this jumble took 4.10399 seconds\
+Checked  130  permutations.\
+Made  14756720  comparisons.\
+\
+Enter a scrambled word (or EXIT):  yalelv\
+Found  720 permutations;  360.0 unique permutations\
+Found word: valley\
+Solving this jumble took 10.38837 seconds\
+Checked  342  permutations.\
+Made  38868873  comparisons.\
+\
+Enter a scrambled word (or EXIT):  valley\
+Found  720 permutations;  360.0 unique permutations\
+Found word: valley\
+Solving this jumble took 0.02574 seconds\
+Checked  1  permutations.\
+Made  59663  comparisons.\
+\
+Enter a scrambled word (or EXIT):  exit\
+Thanks for playing!  Goodbye.\
+}

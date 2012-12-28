@@ -1,0 +1,82 @@
+CS313E Assignment 8: Jumble Step 2 (10 points)
+
+Due: by Monday, November 12, 2012 by 11:59pm
+
+Your program listing should have the following information.
+
+#  Files: Permutations.py, Wordlist.py, Solver.py, README
+#
+#  Description:
+#
+#  Student's Name:
+#
+#  Student's UT EID:
+#
+#  Course Name: CS 313E 
+#
+#  Date Created:
+#
+#  Date Last Modified:
+You must submit your .py files.
+Your .py file should have the header with the proper documentation.
+You should be submitting your .py file through the web based turnin program. We will not accept files e-mailed to us.
+Your code must compile before submission.
+The Assignment
+
+You can do this assignment with one other student. Only submit one version, but be sure to indicate on your submission what students participated.
+This is the second of a series of assignments aimed at solving the Jumbles that you see in the paper or online: Jumble website. The idea is this: given a series of scrambled words, unscramble them.
+
+The basic algorithm is as follows: given a scrambled word (e.g., ACTMH), you generate permutations of the word and check your wordlist until you either find the word (MATCH), or you exhaust the list of permutations, in which case you report failure.
+
+You solved this problem by searching a simple unordered Wordlist in Assignment 6. In this assignment, you'll be building on what you did there. In particular, you'll implement the steps below.
+
+Feel free to update your code from Assignment 6 as you see fit. But you should have to change very little in your Solver module to make this work. In some later assignments you will be extending the Wordlist class even further to make the search more and more efficient (but without changing the interface). You should strive to have very minimal changes to your Solver file. You really are only changing the implementation of your Wordlist class.
+
+Extend Your Wordlist ADT
+
+To your Wordlist class file from Assignment 6, you will add another class SortedWordList, which extends your current Wordlist class and inherits from it. The SortedWordList class should override the following methods: __init__, addWord, and findWord. If you didn't implement addWordsFromFile by repeatedly calling addWord, you may have to override addWordsFromFile also.
+You will build your wordlist in sorted order using insertion sort. That is, addWord should insert a word (assuming the word satisfies the filter) into the appropriate sorted position in the list. Method findWord should search for the presence of a string in the list using Binary Search. The algorithm for Binary Search is here: binary search code.
+
+The interface for SortedWordList must be exactly the same as the interface for WordList. That is, the user of the class should not see any difference.
+
+Write a Top-Level Driver
+
+Your main program will be told whether to construct the wordlist as an instance of the Wordlist class or of the SortedWordList class by a command line argument. That means that your program will be called by one of the following two commands:
+   python Solver.py flat
+   python Solver.py sort
+The command line argument will specify whether to run using a Wordlist or SortedWordList. Your main program should otherwise be identical. (You may have to figure out how to read in command line arguments if you are calling your program from an IDE such as Idle or Eclipse.)
+Process command line arguments as follows: If you import the module sys, command line arguments are delivered to the program as a list of strings called sys.argv. sys.argv[0] will be the script name (e.g., Solver.py). Other items on the command line will be successive elements of sys.argv. You can treat this just like any other list of strings. See example code below.
+
+If you are using Idle and can't figure out how to enter command line arguments, you can "fake it" by having the following code. In that case sys.argv will have only a single argument, the script name, so you can set it to be the appropriate list of strings
+
+ 
+import sys
+
+    ...
+
+    # The next if fakes command line arguments by setting sys.argv explicitly.
+    if len( sys.argv ) == 1:
+        # The user didn't supply any command line args, so we have to set
+        # them manually.
+        # Change this if you need to 
+        sys.argv = ["Solver.py", "flat"]
+
+    # The following should work whether or not you have command line
+    # args or are "faking it." 
+    if len( sys.argv ) < 2:
+        print("Please supply a command line argument: flat or sort.") 
+        sys.exit()   
+    elif sys.argv[1] == "flat":
+        wordlist = Wordlist.Wordlist()
+        print("Using flat unsorted wordlist.")
+    elif sys.argv[1] == "sort":
+        wordlist = Wordlist.WordlistSorted()
+        print("Using sorted wordlist.")
+    ....
+
+Following the example of the code above, your main program will create an empty wordlist (either flat or sorted, depending on how the program is called). Then, populate your wordlist as before with the words from file: Unordered word list, filtering to store only words of 5 or 6 letters. As in Assignment 6, print out the number or words in the wordlist and how long it took to generate the wordlist. Expect it to take much longer to generate the sorted wordlist than the flat wordlist. Think about why that is.
+Following that initial setup, your main program should do exactly what it did in Assignment 6: Enter a loop and in each iteration prompt the user for an input string, generate permutations of the string, and test whether any permutation is in the wordlist. If so, return that word as your answer along with statistics of the search (how many comparisons you made, how many permutations were tried, and how long it took). If no permutation is in the wordlist, report failure and the statistics of the search. Loop until the user enters "exit." User input should not be case sensitive. The output should be very nearly identical to that from Assignment 6.
+
+Compare the Two Implementations
+
+Finally, run your program to solve at least 5 Jumbles of length 5 and at least 5 Jumbles of length 6. Run it first with command line argument flat and then again with command line argument sort, using the same test data for each run. Create a small README file comparing the results. Your comparison should reference both the time to generate the wordlist, the time to solve each Jumble, the number of permutations explored, and the number of comparisons. Explain the differences you see in the two experiments.

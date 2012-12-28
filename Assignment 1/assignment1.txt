@@ -1,0 +1,123 @@
+<HTML>
+<HEAD>
+<TITLE>CS 313E Fall 2010</TITLE>
+<META name="KeyWords" content="CS 313E Fall 2010">
+
+</HEAD>
+<BODY>
+
+<H3>CS313E Assignment 1: More Python Programming (10 points) </H3>
+
+<P>Due: by Monday, September 17, 2012.<P>
+
+<P>Your program listing should have the following information. 
+
+</p><pre>
+#  Files: Assignment1.py
+#
+#  Description:
+#
+#  Student's Name:
+#
+#  Student's UT EID:
+#
+#  Course Name: CS 313E 
+#
+#  Date Created:
+#
+#  Date Last Modified:
+</pre>
+<p></p>
+
+
+</p><ul>
+<li> You must submit your .py files. </li>
+<li> Your .py file should have the header with the proper documentation.</li>
+<li> You should be submitting your .py file through the web based 
+     <i>turnin</i> program.  Do not email your files unless there is
+     some problem with the turnin program. </li>
+<li> Your code must compile before submission. </li>
+</ul>
+<p></p>
+
+<H3>The Assignment</H3>
+
+One of the things we're going to be doing a lot of this semester is
+processing data from a file.  Assume you have a file containing words,
+one per line.  Here's such a file: <A HREF="newwordlist">word
+list</A>.  Save that word list to your directory area. 
+
+Write a Python program to read successive words from that list, see if
+the word meets some test, and write to another file exactly those words that
+pass the test.  The test should be in the form of a Boolean valued
+function.  For example, if you want to output exactly the words of length 5, you
+might write the "filter" function:
+<pre>
+def hasLength5( word ):
+    return len( word ) == 5
+</pre>
+
+Write your chief function with the template below. Formal parameters
+inputFileName and outputFileName are strings that are the names of the
+files you are reading from and writing to, respectively.  The input
+file has to exist, but the output file is created by the program.
+Finally, f is a functional parameter.  You pass in the name of the
+filter function you're applying.  Your program should also count how
+many words you read from input, and how many you wrote to output, and
+print that information in a nice format.<P>
+
+<pre>
+def filterFile( inputFileName, outputFileName, f ):
+    ...
+    # create a file object associated with the input
+    # file specified and open for reading
+    myinputFile  = open(inputFileName, 'r')
+
+    # create a file object associated with the output
+    # file specified and open for writing
+    myoutputFile = open(outputFileName, 'w')
+
+    ...
+
+    # This assumes that there is only one word per line and
+    # no extra stuff on the line, like blank space. 
+    for word in inputFile:
+        ... 
+        if f( word ):
+           ...
+           # write the word to the output file
+           myoutputFile.write( word )
+
+    # print a summary of how many words you output 
+    # that satisfy f.
+    ...
+
+    inputFile.close()
+    outputFile.close()
+</pre>
+For example, if your input file is named <tt>myWordList</tt> and you
+want to produce a file called <tt>wordsOfLength5</tt> using
+the <tt>hasLength5</tt> function defined above, you'd use the
+following call:
+
+<pre>
+filterFile( "myWordList", "wordsOfLength5", hasLength5 )
+</pre>
+You shouldn't have to change your <tt>main</tt> function at all for
+the different calls. <P>
+
+Write filter functions and calls to do the following:
+<ol>
+<li> Get all words of length 7 from the list.  Name the output
+  file <tt>wordsOfLength7</tt>.
+<li> Get all words from the list containing the letter "q".  Name the output
+  file <tt>wordsQ</tt>.
+<li> Get all words from the list that start with the letter "l".
+Name the output file <tt>LWords</tt>.
+<li> Get all words from the list that are palindromes (read the
+  same backwards and forwards.  Name the output file <tt>palindromes</tt>.
+</ol>
+Your filter functions, filterFile function, and calls should all be in one file.
+Your program should run once and generate four output files.
+
+</body></html>

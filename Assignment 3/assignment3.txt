@@ -1,0 +1,311 @@
+<HTML>
+<HEAD>
+<TITLE>CS 313E Fall 2012</TITLE>
+<META name="KeyWords" content="CS 313E Fall 2012">
+
+</HEAD>
+<BODY>
+
+<H3>CS313E Assignment 3--Dealing Poker Hands (10 points) </H3>
+
+<P>Due: by midnight Monday, October 1, 2012.<P>
+
+Your program listing should have the following information.  Note that
+Poker.py is the top level file.  The others merely contain the classes of
+the same name.  They will be imported as necessary into the others. <P>
+
+</p><pre>
+#  Files: Card.py, Deck.py, Hand.py, Poker.py
+#
+# Description:
+#
+# Student's Name:
+#
+# Student's UT EID:
+#
+# Course Name: CS 313E 
+#
+# Date Created:
+#
+# Date Last Modified:
+</pre>
+
+<p></p>
+
+
+</p><ul>
+<li> You must submit the .py files. </li>
+<li> All .py files should have the header with the proper
+  documentation.  </li>
+<li> You should be submitting your .py files through the web based 
+     <i>turnin</i> program.  In general, we will not accept files
+     e-mailed unless there is a verifiable problem with turnin. </li>
+<li> Your code must compile before submission. </li>
+</ul>
+<p></p>
+
+<H3>The Assignment</H3>
+
+In class, we've been discussing a Python program that deals and
+evaluates a hand of cards as you would in poker.  This involves three
+classes: <tt>Card</tt>, <tt>Deck</tt> and <tt>Hand</tt>.  You have
+seen Card, Deck, and part of Hand, and all of Poker in the slides.
+Your assignment is to put it all together (mainly by completing Hand)
+so that your program does the following:
+<ol>
+<li> Create a new deck of cards;
+<li> Shuffle the deck;
+<li> Prompt the user for how many hands N to deal;
+<li> For each of N hands, deal the hand from the deck, evaluate the
+  hand, and print out the result;
+<li> If you run out of cards (you will after 10 hands), generate a new shuffled
+  deck and continue; 
+<li> Exit after N hands have been dealt and evaluated. 
+</ol>
+
+If you don't know the ranking of hands in poker or the meaning of some
+of the terms, you can find them here: 
+<A HREF="http://www.pokerlistings.com/poker-hand-ranking">Poker
+hands<A>.<P>
+
+<H3>A Big Hint for Evaluating Hands</H3>
+
+This assignment can be pretty straightforward if you handle it
+correctly.  Suppose you have the following cards in your hand:
+<pre>
+Ace of Spades
+3 of Diamonds
+King of Spades
+3 of Hearts
+Ace of Hearts
+</pre>
+You can preprocess a hand to extract the information you need as
+follows.  Define two lists:
+<pre>
+ mysuits = [0] * 4     # a list of 4 zeros
+ myranks = [0] * 13    # a list of 13 zeros
+</pre>
+For each card in the hand, extract the suit and rank and increment the
+appropriate positions in mysuits and myranks.  For example, given the
+hand above, this yields:
+<pre>
+  # 2 Spades, 1 Diamond, 2 Hearts, no Clubs
+  mysuits: [ 2, 1, 2, 0 ]                  
+  # 2 Aces, 2 3's, 1 King           
+  myranks: [ 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ] 
+</pre>
+using the ordering [Spades, Diamonds, Hearts, Clubs] for the suits as
+defined in the Card class. <P>
+
+Given this information you have: 
+<ul>
+<li> a pair: if there's a 2 anywhere in myranks;
+<li> two pairs: if there are two 2's in myranks;
+<li> a full house: if there is a 2 and a 3 in myranks;
+<li> a flush: if there's a 5 in mysuits;
+<li> a straight: if there are 5 <i>consecutive</i> 1's in myranks
+  (allowing Ace to be either high or low);
+<li> a straight flush: if you have both a straight and a flush;
+<li> etc.
+</ul>
+It's important to evaluate things in the right order, because you
+don't want to report a pair, if you actually have two pairs or a full
+house.  Below is possible code for the EvaluateHand function that
+checks things in the right order.
+<pre>
+
+    def evaluateHand(self):
+        if self.hasRoyalFlush():
+            return "Royal Flush"
+        elif self.hasStraightFlush():
+            return "Straight Flush"
+        elif self.hasFourOfAKind():
+	    return "Four of a kind"
+        elif self.hasFullHouse():
+	    return "Full House"
+	elif self.hasFlush():
+	    return "Flush"
+	elif self.hasStraight():
+	    return "Straight"
+	elif self.hasThreeOfAKind():
+	    return "Three of a kind"
+	elif self.hasTwoPair():
+	    return "Two pair"
+	elif self.hasPair():
+	    return "Pair"
+        else:
+	    return "Nothing"
+
+</pre>
+
+
+<H3>Extra Credit (possible 2 points)</H3> 
+
+If you get the regular assignment finished and want to challenge
+yourself. Add the functionality to deal two hands, store the
+evaluations, and then compare them to see who "won".  You will have to
+be more informative in your reporting; e.g., report "Pair of Kings"
+instead of just "Pair," since a pair of Kings beats a pair of 10s, a
+full house beats a flush, etc.  Then define a <tt>__lt__</tt> function
+in the <tt>Hand</tt> class to allow you to compare evaluations using
+the "greater than" symbol.<P>
+
+Your driver for the extra credit should allow specify how many
+"rounds" to play.  In each round, deal two hands, evaluate both and
+say which won, if there's a winner. Your code must do that test using
+the "&lt;" operator on the two hands. In any round, generate a new deck
+if there are not 10 cards left in the deck.  You wouldn't want to
+compare two hands dealt from different decks.<P>
+
+<H3>Some Sample Output</H3>
+
+Your output doesn't have to match exactly what is here, but your
+calling conventions should match. That is, the TA should be able to
+type <TT>python3 Poker.py</tt> to generate and evaluate N
+Hands.  Make sure your code handles the case where there are more
+than 10 hands.<P>
+
+
+<pre>
+felix:~/cs313e/python/Poker> python Poker.py
+How many hands should I deal? 15
+
+Hand drawn ( 1 ): 
+9 of Spades
+Ace of Diamonds
+4 of Spades
+Ace of Spades
+3 of Spades
+
+Pair
+
+Hand drawn ( 2 ): 
+9 of Clubs
+7 of Spades
+7 of Diamonds
+5 of Hearts
+Ace of Hearts
+
+Pair
+
+Hand drawn ( 3 ): 
+Jack of Spades
+4 of Diamonds
+Queen of Diamonds
+9 of Diamonds
+Jack of Clubs
+
+Pair
+
+Hand drawn ( 4 ): 
+7 of Hearts
+3 of Diamonds
+8 of Diamonds
+King of Spades
+3 of Clubs
+
+Pair
+
+Hand drawn ( 5 ): 
+5 of Diamonds
+5 of Spades
+2 of Clubs
+9 of Hearts
+10 of Spades
+
+Pair
+
+Hand drawn ( 6 ): 
+10 of Diamonds
+4 of Clubs
+King of Diamonds
+Jack of Hearts
+King of Clubs
+
+Pair
+
+Hand drawn ( 7 ): 
+6 of Diamonds
+6 of Hearts
+10 of Hearts
+2 of Hearts
+8 of Spades
+
+Pair
+
+Hand drawn ( 8 ): 
+2 of Spades
+7 of Clubs
+King of Hearts
+8 of Clubs
+Queen of Hearts
+
+Nothing
+
+Hand drawn ( 9 ): 
+Ace of Clubs
+4 of Hearts
+Queen of Clubs
+8 of Hearts
+Queen of Spades
+
+Pair
+
+Hand drawn ( 10 ): 
+10 of Clubs
+Jack of Diamonds
+6 of Spades
+5 of Clubs
+6 of Clubs
+
+Pair
+
+Dealing a new deck.
+
+Hand drawn ( 11 ): 
+6 of Hearts
+Jack of Clubs
+7 of Hearts
+9 of Hearts
+Queen of Clubs
+
+Nothing
+
+Hand drawn ( 12 ): 
+10 of Diamonds
+2 of Clubs
+Jack of Spades
+Ace of Spades
+3 of Diamonds
+
+Nothing
+
+Hand drawn ( 13 ): 
+Jack of Hearts
+5 of Spades
+10 of Hearts
+5 of Hearts
+Queen of Spades
+
+Pair
+
+Hand drawn ( 14 ): 
+3 of Hearts
+2 of Spades
+10 of Spades
+Jack of Diamonds
+7 of Spades
+
+Nothing
+
+Hand drawn ( 15 ): 
+8 of Hearts
+8 of Clubs
+9 of Spades
+7 of Diamonds
+4 of Clubs
+
+Pair
+</pre>
+
+</body></html>

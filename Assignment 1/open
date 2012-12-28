@@ -1,0 +1,3 @@
+openfile = open('pathtofile', 'r')
+openfile.read()
+

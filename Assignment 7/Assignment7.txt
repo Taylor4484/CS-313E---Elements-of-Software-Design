@@ -1,0 +1,113 @@
+CS313E Assignment 7--Radix Sort (10 points)
+
+Due: by Monday, 11/5/12
+
+Your program listing should have the following information.
+
+#  Files: Assignment7.py, any classes you use
+#
+#  Description:
+#
+#  Students' Name:
+#
+#  Students' UT EID:
+#
+#  Course Name: CS 313E 
+#
+#  Date Created:
+#
+#  Date Last Modified:
+You must submit your .py files.
+Your .py file should have the header with the proper documentation.
+You should be submitting your .py file through the web based turnin program. We will not accept files e-mailed to us.
+Your code must compile before submission.
+The Assignment
+
+This assignment is to implement RadixSort for decimal numbers of up to k digits. You will do this in k passes over the data. Note: your implementation can use regular Python lists; you do not have to use Linked Lists.
+Implement a list of 10 bins. Each bin contains a pointer to a list. You'll make three passes over the data sorting on one radix position each time. Note that for each pass, you'll have to create a new list of lists to put the data into. It may be easiest to create a new input list from the list of bins between each pass. That way, you don't have to worry about traversing this structure while you're trying to create a new one. Your code should be written so that the number of passes (rounds) is a parameter. That is, don't build in that you're running for three passes (though that's how many passes you'll actually be running).
+The input list should contain 200 numbers randomly generated in the range [0..999]. The code to do that is below.
+Use your algorithm to sort the list.
+As a final step print out the sorted data separated by spaces (20 items per line). That means that you'll have to write your own function for printing (you can't just print the list).
+Your top level (driver) function should contain something like the following code:
+
+   import random
+   # This will generate a list of 200 numbers randomly generated
+   # in the range 0..999.
+   input = [ random.randint(0, 999) for i in range(200) ]
+
+   # You have to write the printList function to print the list, k = 20
+   # numbers per line.
+   print ("The input list is: ")
+   printList(input, 20)
+
+   # This is the function that actually sorts the list, using k = 3
+   # rounds 
+   output = radixSort(input, 3)
+
+   # Print the sorted result.
+   print ("\nThe sorted list is: ")
+   printList(output, 20)
+
+Finally, here is the output I got from running my code. After each round I printed out the bins just to see if my code was operating correctly. You don't have to do that. The input was generated randomly, so yours will differ.
+The input list is: 
+[  651 327 794 227 714 744 164 938 706 838 809  96 212 140 231 946 184 194 888  16 
+   82 608 545 127 173 939 658 695  22  35 421 591 626 903 356 729 906 298  89 160 
+   640 680 916 612 481 510 479 356 974 388 936 542 674 130 792 257 661 772 144 156 
+   523 822 986 952 961 279 678 538 313 220 226 331 343 226 989 890 315 366 674 713 
+   552 274 722 741 680 138 178 562 133 233 277 916 923 142 237  29 979 885 102 176 
+   626  93 848 682 936 253  76 645 480 268 918 253 953 824 198 666 605 103  13 784 
+   995 853 417 824 394 628  45 906 597 149 956 202 899 419 707 961 130 209 105 222 
+   782  11 702 360 853 251 434 849 594 973 392  66 512 614 892 726  60 591 649  60 
+   557 368 433 706 389 137 570   9  93 150 626 458 880 676  57 741 328 131 538 343 
+   485 320 270 901 839 747 329 789 273  72 948 278 377 469 504 820 612 721 182 288  ]
+
+
+After round 0:
+0 : [ 140  160  640  680  510  130  220  890  680  480  130  360  60  60  570  150  880  320  270  820  ]
+1 : [ 651  231  421  591  481  661  961  331  741  961  11  251  591  741  131  901  721  ]
+2 : [ 212  82  22  612  542  792  772  822  952  552  722  562  142  102  682  202  222  782  702  392  512  892  72  612  182  ]
+3 : [ 173  903  523  313  343  713  133  233  923  93  253  253  953  103  13  853  853  973  433  93  343  273  ]
+4 : [ 794  714  744  164  184  194  974  674  144  674  274  824  784  824  394  434  594  614  504  ]
+5 : [ 545  695  35  315  885  645  605  995  45  105  485  ]
+6 : [ 706  96  946  16  626  356  906  916  356  936  156  986  226  226  366  916  176  626  936  76  666  906  956  66  726  706  626  676  ]
+7 : [ 327  227  127  257  277  237  417  597  707  557  137  57  747  377  ]
+8 : [ 938  838  888  608  658  298  388  678  538  138  178  848  268  918  198  628  368  458  328  538  948  278  288  ]
+9 : [ 809  939  729  89  479  279  989  29  979  149  899  419  209  849  649  389  9  839  329  789  469  ]
+
+
+After round 1:
+0 : [ 901  102  202  702  903  103  504  605  105  706  906  906  706  707  608  809  209  9  ]
+1 : [ 510  11  212  612  512  612  313  713  13  714  614  315  16  916  916  417  918  419  ]
+2 : [ 220  320  820  421  721  22  822  722  222  523  923  824  824  626  226  226  626  726  626  327  227  127  628  328  729  29  329  ]
+3 : [ 130  130  231  331  131  133  233  433  434  35  936  936  237  137  938  838  538  138  538  939  839  ]
+4 : [ 140  640  741  741  542  142  343  343  744  144  545  645  45  946  747  848  948  149  849  649  ]
+5 : [ 150  651  251  952  552  253  253  953  853  853  356  356  156  956  257  557  57  658  458  ]
+6 : [ 160  360  60  60  661  961  961  562  164  366  666  66  268  368  469  ]
+7 : [ 570  270  772  72  173  973  273  974  674  674  274  176  76  676  277  377  678  178  278  479  279  979  ]
+8 : [ 680  680  480  880  481  82  682  782  182  184  784  885  485  986  888  388  288  89  989  389  789  ]
+9 : [ 890  591  591  792  392  892  93  93  794  194  394  594  695  995  96  597  298  198  899  ]
+
+
+After round 2:
+0 : [ 9  11  13  16  22  29  35  45  57  60  60  66  72  76  82  89  93  93  96  ]
+1 : [ 102  103  105  127  130  130  131  133  137  138  140  142  144  149  150  156  160  164  173  176  178  182  184  194  198  ]
+2 : [ 202  209  212  220  222  226  226  227  231  233  237  251  253  253  257  268  270  273  274  277  278  279  288  298  ]
+3 : [ 313  315  320  327  328  329  331  343  343  356  356  360  366  368  377  388  389  392  394  ]
+4 : [ 417  419  421  433  434  458  469  479  480  481  485  ]
+5 : [ 504  510  512  523  538  538  542  545  552  557  562  570  591  591  594  597  ]
+6 : [ 605  608  612  612  614  626  626  626  628  640  645  649  651  658  661  666  674  674  676  678  680  680  682  695  ]
+7 : [ 702  706  706  707  713  714  721  722  726  729  741  741  744  747  772  782  784  789  792  794  ]
+8 : [ 809  820  822  824  824  838  839  848  849  853  853  880  885  888  890  892  899  ]
+9 : [ 901  903  906  906  916  916  918  923  936  936  938  939  946  948  952  953  956  961  961  973  974  979  986  989  995  ]
+
+The sorted list is: 
+[    9  11  13  16  22  29  35  45  57  60  60  66  72  76  82  89  93  93  96 102 
+   103 105 127 130 130 131 133 137 138 140 142 144 149 150 156 160 164 173 176 178 
+   182 184 194 198 202 209 212 220 222 226 226 227 231 233 237 251 253 253 257 268 
+   270 273 274 277 278 279 288 298 313 315 320 327 328 329 331 343 343 356 356 360 
+   366 368 377 388 389 392 394 417 419 421 433 434 458 469 479 480 481 485 504 510 
+   512 523 538 538 542 545 552 557 562 570 591 591 594 597 605 608 612 612 614 626 
+   626 626 628 640 645 649 651 658 661 666 674 674 676 678 680 680 682 695 702 706 
+   706 707 713 714 721 722 726 729 741 741 744 747 772 782 784 789 792 794 809 820 
+   822 824 824 838 839 848 849 853 853 880 885 888 890 892 899 901 903 906 906 916 
+   916 918 923 936 936 938 939 946 948 952 953 956 961 961 973 974 979 986 989 995  ]

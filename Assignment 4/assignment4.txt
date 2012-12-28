@@ -1,0 +1,168 @@
+<HTML>
+<HEAD>
+<TITLE>CS 313E Fall 2012</TITLE>
+<META name="KeyWords" content="CS 313E Fall 2012">
+
+</HEAD>
+<BODY>
+
+<H3>CS313E Assignment 4--A Simple Calculator Program (10 points) </H3>
+
+<P>Due: by midnight Monday, October 8, 2012.<P>
+
+<b>For this program, you can work with a single partner.  Be sure to
+  specify in your listing who worked on it.  If you've been having a
+  lot of trouble, try to find someone to work with who has not been
+  having trouble.  But make sure that you understand what your group
+  is doing.</b><P>
+
+Your program listing should have the following information. 
+
+</p><pre>
+#  Files: Stack.py, Calculator.py
+#
+# Description:
+#
+# Student's Name(s):
+#
+# Student's UT EID:
+#
+# Course Name: CS 313E 
+#
+# Date Created:
+#
+# Date Last Modified:
+</pre>
+
+<p></p>
+
+
+</p><ul>
+<li> You must submit the .py files. </li>
+<li> Your .py file should have the header with the proper documentation.</li>
+<li> You should be submitting your .py file through the web based 
+     <i>turnin</i> program. We will not accept files e-mailed to us. </li>
+<li> Your code must compile before submission. </li>
+</ul>
+<p></p>
+
+<H3>The Assignment</H3>
+
+<i>I suggest taking care with this assignment because you may be
+  reusing some of the code in later assignments.  So you might as well
+  get it right now!</i><P>
+
+The mathematical notation that we use is called infix, because the
+operator comes between the arguments.  It is actually much less
+convenient for machine processing than several other possible
+notations because you need precedence rules and parenthesis to make it
+unambiguous.  Nevertheless, it's what we're stuck with. <P>
+
+Your assignment is to write a simple calculator that prompts the user
+for input, inputs an expression, evaluates and prints the value of the
+expression (or an error message if the expression is ill-formed). Your
+calculator should take input either in infix notation or in postfix
+notation.  The default should be infix, but allow the user to input
+strings "infix" or "postfix" to toggle between the two. Exit the
+program when the user types "stop".<P>
+
+Note that this is not directly related to the Calc class we defined
+earlier, though you may adopt ideas from that if you like.  <i>On the
+other hand, that may just confuse you, so feel free to ignore that in
+doing this assignment.</i><P>
+
+Input may contain positive integer constants and the following
+operators: + (plus), - (minus), * (times), and parentheses (for
+infix).  Use spaces to separate tokens in your input.  That is, you
+should input "( 12 + 7 ) * 3" rather than "(12+7)*3".  This allows
+your numeric constants to be more than a single character long. <P>
+
+Coding this will involve the following steps:
+
+<ol>
+<li> You'll need a Stack class.  The one in the notes is fine.  It
+  should be in it's own Stack.py file.
+
+<li> Build a postfix evaluator. It should be similar to the one in the
+  notes, but check for errors such as illegal characters.  Use
+  whitespace to separate tokens in the input.
+
+<li> Build an infix to postfix translator.  Again, you can use the
+  algorithm from the notes. Check for illegal inputs.
+
+<li> Build a top-level calculator loop that accepts inputs from the
+  user, maintains the state (infix / postfix mode), does the computation
+  and prints the result.  If you're in postfix mode, just call the
+  postfix evaluator.  If in infix mode, translate the expression from
+  infix to postfix and call the postfix evaluator.
+
+<li> You should handle simple errors such as missing arguments, but
+  you don't have to be overly thorough about that.
+
+</ol>
+<b>Note:</b> Stack should be a class and be treated as an abstract
+data type.  But the rest of this you can do as functions at the top
+level.  Don't think you have to have a Calculator class for this one.<P>
+
+
+<H3>Sample Output</H3>
+
+Below is the behavior of my Calculator program on some inputs. Yours
+doesn't have to match this exactly, but should do behave similarly.
+BTW: the first thing I did was call <tt>"print (calc.__doc__)",</tt>
+which prints the document string for the calc function (my main
+function).  That's another good use for doc strings.<P>
+
+<pre>
+felix:~/cs313e/python> python Calculator.py
+This is a simple calculator.  Enter expressions in infix (default)
+    or postfix notation.  Enter 'infix' or 'postfix' to toggle the mode.  Enter
+    'stop' to exit.  Tokens in your expression must be separated by spaces.
+    Expressions can involve integers and any of +, *, -.  Infix expressions
+    can use parentheses to disambiguate.
+
+Enter an infix expression: 3 + 2 * 4
+The answer is: 11
+
+Enter an infix expression: ( 3 + 2 ) * 4
+The answer is: 20
+
+Enter an infix expression: postfix
+
+Enter a postfix expression: 3 2 4 * +
+The answer is: 11
+
+Enter a postfix expression: 3 2 +  4 *
+The answer is: 20
+
+Enter a postfix expression: 3 +
+Ill-formed expression
+
+Enter a postfix expression: infix
+
+Enter an infix expression: 3 +
+Ill-formed expression
+
+Enter an infix expression: a + b
+Ill-formed expression  bad token a
+
+Enter an infix expression: ( 3 + 4 )
+The answer is: 7
+
+Enter an infix expression: stop
+felix:~/cs313e/python> 
+</pre>
+
+<H3>Extra Credit (possible 2 points)</H3>
+
+Extend your calculator to allow variables.  You can do this by keeping
+a dictionary mapping identifiers to values.  Your calculator should
+accept inputs of the form: "= identifier value" (e.g., "= A 17",
+meaning to set variable A to have value 17).  Then, when evaluating an
+expression involving A, you'd look up the current value in the
+dictionary and use that value.  If the user tries to use a variable
+before it has a value your program should print an error message and
+continue.   Make sure to update the documentation including the
+message printed out when your program begins. 
+
+</body></html>
